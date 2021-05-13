@@ -10,6 +10,7 @@ import cors from 'cors'
 import librosRoutes from './routes/libros.routes'
 import editorialesRoutes from './routes/editoriales.routes'
 import almacenesRoutes from './routes/almacenes.routes'
+import referenciasRoutes from './routes/referencias.routes'
 
 const app = express()
 
@@ -37,6 +38,7 @@ app.get("/", (req, res) => {
 app.use("/api/libros", librosRoutes)
 app.use("/api/editoriales", editorialesRoutes)
 app.use("/api/almacenes", almacenesRoutes)
+app.use("/api/referencias", referenciasRoutes)
 
 export default app
 

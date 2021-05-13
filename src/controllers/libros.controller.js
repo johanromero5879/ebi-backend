@@ -12,3 +12,9 @@ export const crearLibro = async (req, res) => {
     }
 
 }
+
+export const obtenerLibro = async (req, res) => {
+    const libro = await Libro.findById(req.params.id)
+
+    res.json(libro)
+}
