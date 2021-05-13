@@ -18,3 +18,9 @@ export const crearEditorial = async (req, res) => {
         res.status(400).json({ error: true })
     }
 }
+
+export const obtenerEditorial = async (req, res)=>{
+    const editorial = await Editorial.findById(req.params.id)
+
+    res.json(editorial)
+}
