@@ -7,6 +7,10 @@ config()
 import express, { json } from 'express'
 import cors from 'cors'
 
+import librosRoutes from './routes/libros.routes'
+import editorialesRoutes from './routes/editoriales.routes'
+import almacenesRoutes from './routes/almacenes.routes'
+
 const app = express()
 
 /**
@@ -29,6 +33,10 @@ app.use(cors())
 app.get("/", (req, res) => {
     res.send("Proyecto EBI Easy Book Inventory")
 })
+
+app.use("/api/libros", librosRoutes)
+app.use("/api/editoriales", editorialesRoutes)
+app.use("/api/almacenes", almacenesRoutes)
 
 export default app
 

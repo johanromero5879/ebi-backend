@@ -8,9 +8,9 @@ const connect = async () => {
             useFindAndModify: false,
             useCreateIndex: true
         })
-        console.log("DB is connected on:", process.env.DB_URL)
+        console.log("Base de datos conectada")
     }catch(ex){
-        throw "DB could not be connected"
+        throw "La base de datos no se pudo conectar"
     }
 }
 
