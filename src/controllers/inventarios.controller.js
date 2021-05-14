@@ -10,7 +10,6 @@ export const crearInventario = async (req, res) => {
         console.log(ex.message)
         res.status(400).json({ error: true })
     }
-
 }
 
 export const obtenerInventarioReferencia = async (req, res) => {
