@@ -2,14 +2,14 @@ import { Router } from 'express'
 import {
     crearInventario,
     actualizarInventario,
-    obtenerInventarioLibro,
+    obtenerInventarioReferencia,
     obtenerInventarioAlmacen
 } from '../controllers/inventarios.controller'
 
 const router = Router()
 
-router.route('/libro/:id')
-    .get(obtenerInventarioLibro)
+router.route('/ref/:id')
+    .get(obtenerInventarioReferencia)
 
 router.route('/almacen/:id')
     .get(obtenerInventarioAlmacen)
@@ -17,7 +17,7 @@ router.route('/almacen/:id')
 router.route('/')
     .post(crearInventario)
 
-router.route('/almacen/:id_almacen/libro/:id_libro')
+router.route('/almacen/:id_almacen/ref/:id_ref')
     .put(actualizarInventario)
 
 

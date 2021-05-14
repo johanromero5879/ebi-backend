@@ -3,6 +3,8 @@ import { Schema, model } from 'mongoose'
 const movimientoSchema = new Schema({
     cantidad: Number,
     fecha: Date,
+    detalle: String,
+    tipo: String,
     referencia:
         {
             ref: 'referencias',

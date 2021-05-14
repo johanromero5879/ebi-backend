@@ -13,8 +13,8 @@ export const crearInventario = async (req, res) => {
 
 }
 
-export const obtenerInventarioLibro = async (req, res) => {
-    const inventario = await Inventario.find({libro:req.params.id})
+export const obtenerInventarioReferencia = async (req, res) => {
+    const inventario = await Inventario.find({referencia:req.params.id})
 
     res.json(inventario)
 }
@@ -30,7 +30,7 @@ export const actualizarInventario = async (req, res) => {
             cantidad:req.body.cantidad
         }
     }
-    await Inventario.updateOne({almacen:req.params.id_almacen,libro:req.params.id_libro},update)
+    await Inventario.updateOne({almacen:req.params.id_almacen,referencia:req.params.id_ref},update)
     
     res.json({
         ok:true

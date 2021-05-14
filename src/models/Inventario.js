@@ -2,9 +2,9 @@ import { Schema, model } from 'mongoose'
 
 const inventariosSchema = new Schema({
     cantidad: Number,
-    libro:
+    referencia:
         {
-            ref: 'libros',
+            ref: 'referencias',
             type: Schema.Types.ObjectId
         },
     almacen:
