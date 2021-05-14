@@ -12,6 +12,7 @@ import editorialesRoutes from './routes/editoriales.routes'
 import almacenesRoutes from './routes/almacenes.routes'
 import referenciasRoutes from './routes/referencias.routes'
 import inventariosRoutes from './routes/inventarios.routes'
+import usuariosRoutes from './routes/usuarios.routes'
 
 const app = express()
 
@@ -41,6 +42,7 @@ app.use("/api/editoriales", editorialesRoutes)
 app.use("/api/almacenes", almacenesRoutes)
 app.use("/api/referencias", referenciasRoutes)
 app.use("/api/inventarios", inventariosRoutes)
+app.use("/api/usuarios", usuariosRoutes)
 
 export default app
 

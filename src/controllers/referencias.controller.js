@@ -7,7 +7,7 @@ export const crearReferencia  = async (req, res) => {
         await nuevaReferencia.save()
         res.json({ ok: true })
     }catch(ex){
-        console.log(ex)
+        console.log(ex.message)
         res.status(400).json({ error: true })
     }
 }
