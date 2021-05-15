@@ -13,7 +13,8 @@ import almacenesRoutes from './routes/almacenes.routes'
 import referenciasRoutes from './routes/referencias.routes'
 import inventariosRoutes from './routes/inventarios.routes'
 import usuariosRoutes from './routes/usuarios.routes'
-
+import movimientosRoutes from './routes/movimientos.routes'
+import kardexRoutes from './routes/kardex.routes'
 const app = express()
 
 /**
@@ -43,6 +44,8 @@ app.use("/api/almacenes", almacenesRoutes)
 app.use("/api/referencias", referenciasRoutes)
 app.use("/api/inventarios", inventariosRoutes)
 app.use("/api/usuarios", usuariosRoutes)
+app.use("/api/movimientos", movimientosRoutes)
+app.use("/api/kardex", kardexRoutes)
 
 export default app
 
