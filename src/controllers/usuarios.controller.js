@@ -8,6 +8,7 @@ export const crearUsuario = async (req, res) => {
         await nuevaPersona.save()
 
         usuario.persona = nuevaPersona._id
+        usuario.contrasena = await Usuario.encriptarContrasena(usuario.contrasena)
         const nuevoUsuario = new Usuario(usuario)
         await nuevoUsuario.save()
 

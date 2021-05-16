@@ -7,6 +7,7 @@ config()
 import express, { json } from 'express'
 import cors from 'cors'
 
+import authRoutes from './routes/auth.routes'
 import librosRoutes from './routes/libros.routes'
 import editorialesRoutes from './routes/editoriales.routes'
 import almacenesRoutes from './routes/almacenes.routes'
@@ -38,6 +39,7 @@ app.get("/", (req, res) => {
     res.send("Proyecto EBI Easy Book Inventory")
 })
 
+app.use("/api/auth", authRoutes)
 app.use("/api/libros", librosRoutes)
 app.use("/api/editoriales", editorialesRoutes)
 app.use("/api/almacenes", almacenesRoutes)
@@ -46,6 +48,7 @@ app.use("/api/inventarios", inventariosRoutes)
 app.use("/api/usuarios", usuariosRoutes)
 app.use("/api/movimientos", movimientosRoutes)
 app.use("/api/kardex", kardexRoutes)
+
 
 export default app
 
