@@ -14,14 +14,11 @@ export const crearMovimiento = async (req, res) => { // crea nuevo movimiento co
 
             try{
                 if(tipo == "dev_adquisicion" || tipo == "distribucion"){//se compara devolucion adquicion o distribucion teniendo en cuenta la cantidad del req
-                    try{
-                        if(ver_inven.cantidad>=cantidad){
-                            cantidad = -cantidad
-                        }else{ 
-                            throw "La cantidad solicitada no puede ser mayor a la cantidad existente"
-                        }
-                    }catch(ex2){
-                        
+                    
+                    if(ver_inven.cantidad>=cantidad){
+                        cantidad = -cantidad
+                    }else{ 
+                        throw "La cantidad solicitada no puede ser mayor a la cantidad existente"
                     }
                 }else if(tipo != "adquisicion" && tipo != "dev_distribucion"){
                     throw "El tipo de movimiento no es valido"

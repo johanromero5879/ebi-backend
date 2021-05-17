@@ -2,12 +2,27 @@ import Inventario from '../models/Inventario'
 
 
 export const actualizarInventario = async (cantidad,almacen,referencia) => { // funcion para la actulizar inventarios al crear un movimiento
+    let inventario = await Inventario.find({almacen,referencia})
     const update = {
         $inc:{
             cantidad:cantidad
         }
     }
-    await Inventario.updateOne({almacen:almacen,referencia:referencia},update)
+
+    //Crea un inventario si este no existe
+    if(!inventario){
+       const nuevoInventario = new Inventario({almacen,referencia, cantidad: 0})
+       await nuevoInventario.save()
+    }
+    
+    await Inventario.updateOne({almacen,referencia},update)
+
+    //Elimina el inventario si no hay existencias
+    inventario = await Inventario.find({almacen,referencia})
+
+    if(inventario.cantidad <= 0){
+        await Inventario.findByIdAndRemove(inventario._id)
+    }
 }
 
 
