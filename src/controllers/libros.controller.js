@@ -19,6 +19,7 @@ export const obtenerLibro = async (req, res) => {
     res.json(libro)
 }
 
+//Eliminar Libros Por ID
 export const eliminarLibro = async (req,res) =>{
     try{
         let libro  = await Libro.deleteOne({_id: req.body.id}) 
@@ -30,7 +31,7 @@ export const eliminarLibro = async (req,res) =>{
 }
 
 //Actualizar datos de Libros
-export const actualizarLibroIsbn = async (req,res) => { // actualizar isbn del libro
+export const actualizarLibroIsbn = async (req,res) => { // actualizar isb del libro
     const libro = await Libro.findById(req.params.id)
 
     try {

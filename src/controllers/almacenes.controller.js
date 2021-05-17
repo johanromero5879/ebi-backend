@@ -17,3 +17,14 @@ export const crearAlmacen = async (req, res) => {
         res.status(400).json({ error: true })
     }
 }
+
+//Eliminar Libros Por ID
+export const eliminarAlmacen = async (req,res) =>{
+    try{
+        let almacen  = await Almacen.deleteOne({_id: req.body.id}) 
+        res.json({ message: "El Almacen se elimino correctamente" })
+    }catch(ex){
+        console.log(ex.message)
+        res.status(400).json({ error: true })
+    }
+}
