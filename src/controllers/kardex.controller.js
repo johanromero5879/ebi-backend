@@ -22,8 +22,7 @@ const calcularValoresFinales = (movimientos, kardex) => {
 
 export const crearKardex = async (req, res) => {
     const nuevoKardex = new Kardex(req.body)
-    nuevoKardex.almacen = req.body.almacen
-    const ultimoKardex = await Kardex.findOne({ almacen: almacenK })
+    const ultimoKardex = await Kardex.findOne({ almacen: nuevoKardex.almacen })
         .sort({ fecha: "desc" }).exec()
     try {
         let consultaMov = { almacen: nuevoKardex.almacen }
