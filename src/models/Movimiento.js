@@ -2,7 +2,10 @@ import { Schema, model } from 'mongoose'
 
 const movimientoSchema = new Schema({
     cantidad: Number,
-    fecha: Date,
+    fecha: {
+        type: Date,
+        default: Date.now
+    },
     detalle: String,
     tipo: String,
     referencia:

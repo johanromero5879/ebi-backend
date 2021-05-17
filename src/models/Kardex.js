@@ -1,7 +1,10 @@
 import { Schema, model } from 'mongoose'
 
 const kardexSchema = new Schema({
-    fecha: Date,
+    fecha: {
+        type: Date,
+        default: Date.now
+    },
     valorInicial: Number,
     cantidadInicial: Number,
     valorFinal: Number,
