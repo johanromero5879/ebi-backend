@@ -3,8 +3,8 @@ import Inventario from '../models/Inventario'
 
 export const actualizarInventario = async (cantidad,almacen,referencia) => { // funcion para la actulizar inventarios al crear un movimiento
     const update = {
-    $inc:{
-        cantidad:cantidad
+        $inc:{
+            cantidad:cantidad
         }
     }
     await Inventario.updateOne({almacen:almacen,referencia:referencia},update)

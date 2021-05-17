@@ -1,26 +1,58 @@
 import Kardex from '../models/Kardex'
+import Movimiento from '../models/Movimiento'
+
+const calcularValoresFinales = (movimientos, kardex) => {
+    
+
+    //Calcular valor y cantidad final del kardex
+    for (const movimiento of movimientos) {
+        const { cantidad, tipo, referencia } = movimiento
+        const { precioCosto } = referencia
+
+        if(tipo in ["adquisicion", "dev_distribucion"]){
+            kardex.cantidadFinal += cantidad
+            kardex.valorFinal += precioCosto * cantidad
+        }else if(tipo in ["distribucion", "dev_adquisicion"]){
+            kardex.cantidadFinal -= cantidad
+            kardex.valorFinal -= (precioCosto * cantidad)
+        }
+    }
+
+}
 
 export const crearKardex = async (req, res) => {
     const nuevoKardex = new Kardex(req.body)
-    const almacenK = req.body.almacen
-    const ultimoKardex = await Kardex.findOne({almacen: almacenK})
-                                            .sort({fecha: "desc"}).exec()
-    try{
-        if(ultimoKardex){
-                nuevoKardex.valorInicial =  ultimoKardex.valorFinal
-                nuevoKardex.cantidadInicial =  ultimoKardex.cantidadFinal
-                await nuevoKardex.save() //agregar el nuevo movimiento
-        
-                res.json({ ok: true })
-
-        }else{
-            nuevoKardex.valorInicial =  0
+    nuevoKardex.almacen = req.body.almacen
+    const ultimoKardex = await Kardex.findOne({ almacen: almacenK })
+        .sort({ fecha: "desc" }).exec()
+    try {
+        let consultaMov = { almacen: nuevoKardex.almacen }
+        if (ultimoKardex) {
+            consultaMov.fecha = { $gte: ultimoKardex.fecha, $lte: Date.now } 
+            nuevoKardex.valorInicial = ultimoKardex.valorFinal
+            nuevoKardex.cantidadInicial = ultimoKardex.cantidadFinal
+        } else {
+            nuevoKardex.valorInicial = 0
             nuevoKardex.cantidadInicial = 0
-            await nuevoKardex.save() //agregar el nuevo movimiento
-            res.json({ ok: true })
         }
-    }catch(ex){
-        console.log(ex.message)
-        res.status(400).json({ error: true, message: "Tipo no valido" })}
 
+        const movimientos = await Movimiento.find(consultaMov, '_id cantidad tipo referencia') 
+                                        .populate('referencia', 'precioCosto')
+                                        .sort({ fecha: "asc" }).exec()
+
+        if(movimientos.length <= 0)
+            throw "No se encontraron movimientos"
+
+        calcularValoresFinales(movimientos, nuevoKardex)    
+        
+        nuevoKardex.movimientos = movimientos.map((movimiento) => movimiento._id)
+        
+        await nuevoKardex.save() //agregar el nuevo movimiento
+
+        res.json({ ok: true })
+    } catch (ex) {
+        console.log(ex)
+        res.status(400).json({ error: true, message: ex })
     }
+
+}
