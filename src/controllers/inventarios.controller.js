@@ -1,5 +1,16 @@
 import Inventario from '../models/Inventario'
 
+
+export const actualizarInventario = async (cantidad,almacen,referencia) => { // funcion para la actulizar inventarios al crear un movimiento
+    const update = {
+    $inc:{
+        cantidad:cantidad
+        }
+    }
+    await Inventario.updateOne({almacen:almacen,referencia:referencia},update)
+}
+
+
 export const crearInventario = async (req, res) => {
     const nuevoInventario = new Inventario(req.body)
     
@@ -22,7 +33,7 @@ export const obtenerInventarioAlmacen = async (req, res) => {
 
     res.json(inventario)
 }
-export const actualizarInventario = async (req, res) => {
+/*export const actualizarInventario = async (req, res) => {
     try{
     const update = {
         $inc:{
@@ -38,4 +49,4 @@ export const actualizarInventario = async (req, res) => {
         console.log(ex.message)
         res.status(400).json({ error: true })
     }
-}
+}*/
