@@ -12,7 +12,7 @@ const calcularValoresFinales = (movimientos, kardex) => {
         
         if(tipo == "adquisicion" || tipo == "dev_distribucion"){
             kardex.cantidadFinal += cantidad
-            kardexvalorFinal += precioCosto * cantidad
+            kardex.valorFinal += precioCosto * cantidad
         }else if(tipo == "distribucion" || tipo == "dev_adquisicion"){
             kardex.cantidadFinal -= cantidad
             kardex.valorFinal -= precioCosto * cantidad
