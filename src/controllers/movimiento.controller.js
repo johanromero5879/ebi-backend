@@ -12,20 +12,17 @@ export const crearMovimiento = async (req, res) => { // crea nuevo movimiento co
             let { cantidad } = movimiento
             let ver_inven= await Inventario.findOne({ almacen, referencia })
 
-            try{
-                if(tipo == "dev_adquisicion" || tipo == "distribucion"){//se compara devolucion adquicion o distribucion teniendo en cuenta la cantidad del req
-                    
-                    if(ver_inven.cantidad>=cantidad){
-                        cantidad = -cantidad
-                    }else{ 
-                        throw "La cantidad solicitada no puede ser mayor a la cantidad existente"
-                    }
-                }else if(tipo != "adquisicion" && tipo != "dev_distribucion"){
-                    throw "El tipo de movimiento no es valido"
+            if(tipo == "dev_adquisicion" || tipo == "distribucion"){//se compara devolucion adquicion o distribucion teniendo en cuenta la cantidad del req
+                
+                if(ver_inven.cantidad>=cantidad){
+                    cantidad = -cantidad
+                }else{ 
+                    throw "La cantidad solicitada no puede ser mayor a la cantidad existente"
                 }
-            }catch(ex2){
-                res.status(400).json({ error: true,message:ex2})
+            }else if(tipo != "adquisicion" && tipo != "dev_distribucion"){
+                throw "El tipo de movimiento no es valido"
             }
+
 
             const nuevoMovimiento = new Movimiento(movimiento)
             await nuevoMovimiento.save() //agregar el nuevo movimiento
@@ -34,7 +31,7 @@ export const crearMovimiento = async (req, res) => { // crea nuevo movimiento co
         res.json({ ok: true })
     }catch(ex){
         console.log(ex)
-        res.status(400).json({ error: true })
+        res.status(400).json({ error: true, message: ex })
     }  
 
 }

@@ -16,13 +16,6 @@ export const actualizarInventario = async (cantidad,almacen,referencia) => { // 
     }
     
     await Inventario.updateOne({almacen,referencia},update)
-
-    //Elimina el inventario si no hay existencias
-    inventario = await Inventario.find({almacen,referencia})
-
-    if(inventario.cantidad <= 0){
-        await Inventario.findByIdAndRemove(inventario._id)
-    }
 }
 
 
