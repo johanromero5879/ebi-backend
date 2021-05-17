@@ -2,8 +2,8 @@ import Kardex from '../models/Kardex'
 import Movimiento from '../models/Movimiento'
 
 const calcularValoresFinales = (movimientos, kardex) => {
-    kardex.valorFinal = 0
-    kardex.cantidadFinal = 0
+    kardex.valorFinal = kardex.valorInicial
+    kardex.cantidadFinal = kardex.cantidadInicial
 
     //Calcular valor y cantidad final del kardex
     for (const movimiento of movimientos) {
@@ -27,7 +27,7 @@ export const crearKardex = async (req, res) => {
     try {
         let consultaMov = { almacen: nuevoKardex.almacen }
         if (ultimoKardex) {
-            consultaMov.fecha = { $gte: ultimoKardex.fecha, $lte: Date.now } 
+            consultaMov.fecha = { $gte: ultimoKardex.fecha, $lte: new Date()} 
             nuevoKardex.valorInicial = ultimoKardex.valorFinal
             nuevoKardex.cantidadInicial = ultimoKardex.cantidadFinal
         } else {
