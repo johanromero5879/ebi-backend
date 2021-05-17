@@ -5,6 +5,7 @@ const referenciaSchema = new Schema({
         ref: 'libros',
         type: Schema.Types.ObjectId
     },
+    nombre: String,
     precioCosto: Number
 }, {
     versionKey: false
