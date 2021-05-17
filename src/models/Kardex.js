@@ -20,7 +20,8 @@ const kardexSchema = new Schema({
         type: Schema.Types.ObjectId
     }
 }, {
-    versionKey: false
+    versionKey: false,
+    collection: 'kardex'
 })
 
 export default model('kardex', kardexSchema)
