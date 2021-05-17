@@ -7,7 +7,7 @@ import { actualizarInventario } from './inventarios.controller'
 export const crearMovimiento = async (req, res) => { // crea nuevo movimiento con su respectiva cargue o descargue de inventarios
     const { movimientos } = req.body
     try{
-        for(movimiento of movimientos){
+        for(const movimiento of movimientos){
             const { almacen, referencia, tipo } = movimiento
             let { cantidad } = movimiento
             let ver_inven= await Inventario.findOne({ almacen, referencia })
@@ -29,7 +29,7 @@ export const crearMovimiento = async (req, res) => { // crea nuevo movimiento co
             }catch(ex2){
                 res.status(400).json({ error: true,message:ex2})
             }
-            
+
             const nuevoMovimiento = new Movimiento(movimiento)
             await nuevoMovimiento.save() //agregar el nuevo movimiento
             actualizarInventario(cantidad,almacen,referencia)
