@@ -13,10 +13,10 @@ router.route('/')
     .get(obtenerAlmacenes)
     .post(crearAlmacen)
 
-router.route('/delete')
+router.route('/eliminar')
     .delete(eliminarAlmacen)
 
-router.route('/actualizar/:id')
+router.route('/actualizar/nombre/:id')
     .put(actualizarAlmacen)
 
 export default router

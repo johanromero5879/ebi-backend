@@ -36,7 +36,7 @@ export const actualizarAlmacen = async (req,res) => { // actualizar nombre del a
         res.json({ok: true})
     }catch(ex){
         console.log(ex.message)
-        res.status(400).json({ error: true })
+        res.status(400).json({ error: true, message:"Fallo al actualizar almacen"})
     }
 }
 
