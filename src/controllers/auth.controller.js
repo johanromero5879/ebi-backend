@@ -12,7 +12,6 @@ import Usuario from '../models/Usuario'
 
 export const signin = async (req, res) => {
     let { n_documento, contrasena } = req.body
-    
     const persona = await Persona.findOne({ n_documento })
     try{
         if(!persona) throw "Usuario no encontrado"
