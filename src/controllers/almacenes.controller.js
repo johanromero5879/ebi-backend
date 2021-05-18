@@ -18,7 +18,7 @@ export const crearAlmacen = async (req, res) => {
     }
 }
 
-//Eliminar Libros Por ID
+//Eliminar almacen Por ID
 export const eliminarAlmacen = async (req,res) =>{
     try{
         let almacen  = await Almacen.deleteOne({_id: req.body.id}) 
@@ -29,59 +29,14 @@ export const eliminarAlmacen = async (req,res) =>{
     }
 }
 //Actualizar datos de almacen
-export const actualizarAlmacenNombre = async (req,res) => { // actualizar nombre del almacen
+export const actualizarAlmacen = async (req,res) => { // actualizar nombre del almacen
     const almacen = await Almacen.findById(req.params.id)
-
-    try {
-        const update = {
-        nombre: req.body.nombre 
-        }    
-    await Almacen.updateOne({_id: almacen.id},update)
+    try {  
+        await Almacen.updateOne({_id: almacen.id},req.body)
         res.json({ok: true})
     }catch(ex){
         console.log(ex.message)
         res.status(400).json({ error: true })
     }
 }
-export const actualizarAlmacenDireccion = async (req,res) => { // actualizar dirección del almacen
-    const almacen = await Almacen.findById(req.params.id)
 
-    try {
-        const update = {
-        direccion: req.body.direccion 
-        }    
-    await Almacen.updateOne({_id: almacen.id},update)
-        res.json({ok: true})
-    }catch(ex){
-        console.log(ex.message)
-        res.status(400).json({ error: true })
-    }
-}
-export const actualizarAlmacenTelefono = async (req,res) => { // actualizar telefono del almacen
-    const almacen = await Almacen.findById(req.params.id)
-
-    try {
-        const update = {
-        telefono: req.body.telefono 
-        }    
-    await Almacen.updateOne({_id: almacen.id},update)
-        res.json({ok: true})
-    }catch(ex){
-        console.log(ex.message)
-        res.status(400).json({ error: true })
-    }
-}
-export const actualizarAlmacenCorreo = async (req,res) => { // actualizar correo del almacen
-    const almacen = await Almacen.findById(req.params.id)
-
-    try {
-        const update = {
-        correo: req.body.correo 
-        }    
-    await Almacen.updateOne({_id: almacen.id},update)
-        res.json({ok: true})
-    }catch(ex){
-        console.log(ex.message)
-        res.status(400).json({ error: true })
-    }
-}

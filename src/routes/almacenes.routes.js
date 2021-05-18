@@ -3,10 +3,7 @@ import {
     obtenerAlmacenes,
     crearAlmacen,
     eliminarAlmacen,
-    actualizarAlmacenNombre,
-    actualizarAlmacenDireccion,
-    actualizarAlmacenTelefono,
-    actualizarAlmacenCorreo
+    actualizarAlmacen,
 
 } from '../controllers/almacenes.controller'
 
@@ -19,16 +16,7 @@ router.route('/')
 router.route('/delete')
     .delete(eliminarAlmacen)
 
-router.route('/actualizar/nombre/:id')
-    .put(actualizarAlmacenNombre)
-
-router.route('/actualizar/direccion/:id')
-    .put(actualizarAlmacenDireccion)
-
-router.route('/actualizar/telefono/:id')
-    .put(actualizarAlmacenTelefono)
-
-router.route('/actualizar/correo/:id')
-    .put(actualizarAlmacenCorreo)
+router.route('/actualizar/:id')
+    .put(actualizarAlmacen)
 
 export default router
