@@ -31,92 +31,14 @@ export const eliminarLibro = async (req,res) =>{
 }
 
 //Actualizar datos de Libros
-export const actualizarLibroIsbn = async (req,res) => { // actualizar isb del libro
+export const actualizarLibro = async (req,res) => {
     const libro = await Libro.findById(req.params.id)
 
-    try {
-        const update = {
-        isbn: req.body.isbn 
-        }    
-    await Libro.updateOne({_id: libro.id},update)
+    try { 
+    await Libro.updateOne({_id: libro.id},req.body)
         res.json({ok: true})
     }catch(ex){
         console.log(ex.message)
-        res.status(400).json({ error: true })
-    }
-}
-
-export const actualizarLibroTitulo = async (req,res) => { // actualizar titulo del libro
-    const libro = await Libro.findById(req.params.id)
-
-    try {
-        const update = {
-        titulo: req.body.titulo 
-        }    
-    await Libro.updateOne({_id: libro.id},update)
-        res.json({ok: true})
-    }catch(ex){
-        console.log(ex.message)
-        res.status(400).json({ error: true })
-    }
-}
-
-export const actualizarLibroAutor = async (req,res) => { // actualizar autor del libro
-    const libro = await Libro.findById(req.params.id)
-
-    try {
-        const update = {
-            autor: req.body.autor 
-        }    
-    await Libro.updateOne({_id: libro.id},update)
-        res.json({ok: true})
-    }catch(ex){
-        console.log(ex.message)
-        res.status(400).json({ error: true })
-    }
-}
-
-export const actualizarLibroCategoria = async (req,res) => { // actualizar categoria del libro
-    const libro = await Libro.findById(req.params.id)
-
-    try {
-        const update = {
-            categoria: req.body.categoria 
-        }    
-    await Libro.updateOne({_id: libro.id},update)
-        res.json({ok: true})
-    }catch(ex){
-        console.log(ex.message)
-        res.status(400).json({ error: true })
-    }
-}
-
-export const actualizarLibroTema = async (req,res) => { // actualizar tema del libro
-    const libro = await Libro.findById(req.params.id)
-
-    try {
-        const update = {
-            tema: req.body.tema 
-        }    
-    await Libro.updateOne({_id: libro.id},update)
-        res.json({ok: true})
-    }catch(ex){
-        console.log(ex.message)
-        res.status(400).json({ error: true })
-    }
-}
-
-export const actualizarLibroAnio = async (req,res) => { // actualizar Año del libro
-    const libro = await Libro.findById(req.params.id)
-
-    try {
-        const update = {
-            anio: req.body.anio 
-        }    
-    await Libro.updateOne({_id: libro.id},update)
-        res.json({ok: true})
-    }catch(ex){
-        console.log(ex.message)
-        res.status(400).json({ error: true })
+        res.status(400).json({ error: true, message: "Fallo en actualizar el datos"})
     }
 }
