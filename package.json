@@ -2,7 +2,7 @@
   "name": "easy-book-inventory",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "build/index.js",
   "engines": {
     "node": "16.0.0",
     "npm": "7.11.1"
