@@ -3,12 +3,7 @@ import {
     crearLibro,
     obtenerLibro,
     eliminarLibro,
-    actualizarLibroIsbn,
-    actualizarLibroTitulo,
-    actualizarLibroAutor,
-    actualizarLibroCategoria,
-    actualizarLibroTema,
-    actualizarLibroAnio
+    actualizarLibro
 } from '../controllers/libros.controller'
 
 const router = Router()
@@ -19,25 +14,10 @@ router.route('/:id')
 router.route('/')
     .post(crearLibro)
 
-router.route('/delete')
+router.route('/eliminar/:id')
     .delete(eliminarLibro)
 
-router.route('/actualizar/isbn/:id')
-    .put(actualizarLibroIsbn)
-
-router.route('/actualizar/titulo/:id')
-    .put(actualizarLibroTitulo)
-
-router.route('/actualizar/autor/:id')
-    .put(actualizarLibroAutor)
-
-router.route('/actualizar/categoria/:id')
-    .put(actualizarLibroCategoria)
-
-router.route('/actualizar/tema/:id')
-    .put(actualizarLibroTema)
-
-router.route('/actualizar/anio/:id')
-    .put(actualizarLibroAnio)
+router.route('/actualizar/:id')
+    .put(actualizarLibro)
 
 export default router
