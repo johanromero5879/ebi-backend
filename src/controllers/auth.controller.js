@@ -1,13 +1,13 @@
-import jwt from "jsonwebtoken"
+// import jwt from "jsonwebtoken"
 
 import Persona from '../models/Persona'
 import Usuario from '../models/Usuario'
 
-const obtenerToken = (id) => {
-    return jwt.sign({ id }, process.env.SECRET, {
-        expiresIn: 86400 // 24 horas
-    })
-}
+// const obtenerToken = (id) => {
+//     return jwt.sign({ id }, process.env.SECRET, {
+//         expiresIn: 86400 // 24 horas
+//     })
+// }
     
 
 export const signin = async (req, res) => {
@@ -23,9 +23,17 @@ export const signin = async (req, res) => {
 
         if(!bandera) throw "Credenciales no validas"
 
-        const token = obtenerToken(usuario._id)         
-        res.json({ token })
+        // const token = obtenerToken(usuario._id)  
+
+        res.json({
+            _id: usuario._id,
+            n_documento: persona.n_documento,
+            nombres: persona.nombres,
+            apellidos: persona.apellidos,
+            tipo: usuario.tipo
+         })
     }catch(ex){
+        console.log(ex)
         res.status(400).json({
             error: true,
             message: ex
