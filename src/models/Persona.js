@@ -1,10 +1,7 @@
 import { Schema, model } from 'mongoose'
 
 const personaSchema = new Schema({
-    n_documento: {
-        type: String,
-        unique: true
-    },
+    n_documento: String,
     nombres: String,
     apellidos: String,
     telefono: String,
