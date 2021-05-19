@@ -20,7 +20,7 @@ export const obtenerLibro = async (req, res) => {
 }
 
 export const obtenerLibros = async (req, res) => {
-    const libros = await Libro.find()
+    const libros = await Libro.find().populate("editorial", "_id nombre")
     res.json(libros)
 }
 
