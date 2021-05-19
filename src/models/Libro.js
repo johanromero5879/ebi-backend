@@ -7,12 +7,10 @@ const libroSchema = new Schema({
     categoria: String,
     tema: String,
     anio: Number,
-    editoral: [
-        {
-            ref: 'editoriales',
-            type: Schema.Types.ObjectId
-        }
-    ]
+    editoral: {
+        ref: 'editoriales',
+        type: Schema.Types.ObjectId
+    }
 }, {
     versionKey: false
 })

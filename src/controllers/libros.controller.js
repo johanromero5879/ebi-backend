@@ -19,6 +19,11 @@ export const obtenerLibro = async (req, res) => {
     res.json(libro)
 }
 
+export const obtenerLibros = async (req, res) => {
+    const libros = await Libro.find()
+    res.json(libros)
+}
+
 //Eliminar Libros Por ID
 export const eliminarLibro = async (req,res) =>{
     try{
