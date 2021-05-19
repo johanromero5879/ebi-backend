@@ -32,3 +32,39 @@ export const obtenerUsuarioPorDocumento = async (req, res) => {
         res.json(persona)
     }
 }
+
+export const obtenerUsuarios = async (req, res) => {
+    const usuarios = await Usuario.find({}, { contrasena: 0 })
+                                .populate('persona')
+                                .exec()
+                                
+    res.json(usuarios)
+}
+
+export const editarUsuario = async (req, res) => {
+    const { usuario, persona } = req.body
+    
+    try{
+        const usuarioEncontrado = await Usuario.findById(req.params.id, 'persona')
+
+        if(!usuarioEncontrado)
+            throw "Usuario no encontrado"
+
+        if(usuario){
+            if(usuario.contrasena){
+                usuario.contrasena = await Usuario.encriptarContrasena(usuario.contrasena)
+            }
+
+            await Usuario.findByIdAndUpdate(req.params.id, usuario)
+        }
+
+        if(persona){
+            await Persona.findByIdAndUpdate(usuarioEncontrado.persona, persona)
+        }
+        
+        res.json({ ok: true })
+    }catch(ex){
+        console.log(ex)
+        res.status(400).json({ error: true, message: ex })
+    }
+}
