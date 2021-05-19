@@ -15,11 +15,8 @@ router.route('/')
 
 router.route('/:id')
     .get(obtenerEditorial)
-
-router.route('/eliminar/:id')
     .delete(eliminarEditorial)
-
-router.route('/actualizar/:id')
     .put(actualizarEditoriales)
+    
 
 export default router
