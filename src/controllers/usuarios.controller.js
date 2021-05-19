@@ -8,6 +8,11 @@ export const crearUsuario = async (req, res) => {
         await nuevaPersona.save()
 
         usuario.persona = nuevaPersona._id
+
+        if(!usuario.contrasena){
+            usuario.contrasena = persona.n_documento
+        }
+
         usuario.contrasena = await Usuario.encriptarContrasena(usuario.contrasena)
         const nuevoUsuario = new Usuario(usuario)
         await nuevoUsuario.save()
@@ -15,7 +20,7 @@ export const crearUsuario = async (req, res) => {
         res.json({ ok: true })
     }catch(ex){
         console.log(ex.message)
-        res.status(400).json({ error: true })
+        res.status(400).json({ error: true, message: ex.message})
     }
 }
 
