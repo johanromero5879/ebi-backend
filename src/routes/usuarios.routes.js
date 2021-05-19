@@ -14,7 +14,6 @@ router.route('/doc/:doc')
 router.route('/')
     .post(crearUsuario)
     .get(obtenerUsuarios)
-    .put(editarUsuario)
 
 router.route('/:id')
     .put(editarUsuario)
