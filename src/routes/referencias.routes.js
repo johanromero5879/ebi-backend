@@ -2,13 +2,15 @@ import { Router } from 'express'
 import {
     crearReferencia,
     obtenerRefsPorLibro,
-    actualizarReferencia
+    actualizarReferencia,
+    obtenerReferencias
 } from '../controllers/referencias.controller'
 
 const router = Router()
 
 router.route('/')
     .post(crearReferencia)
+    .get(obtenerReferencias)
 
 router.route('/:id')
     .put(actualizarReferencia)

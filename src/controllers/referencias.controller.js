@@ -12,6 +12,12 @@ export const crearReferencia  = async (req, res) => {
     }
 }
 
+export const obtenerReferencias = async (req, res) => {
+    const referencias = await Referencia.find().populate('libro', '_id titulo').exec()
+    
+    res.json(referencias)
+}
+
 export const obtenerRefsPorLibro = async (req, res) => {
     const refs = await Referencia.find({ libro: req.params.id }, { libro: 0 })
     res.json(refs)
