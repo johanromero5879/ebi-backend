@@ -7,7 +7,7 @@ const libroSchema = new Schema({
     categoria: String,
     tema: String,
     anio: Number,
-    editoral: {
+    editorial: {
         ref: 'editoriales',
         type: Schema.Types.ObjectId
     }
