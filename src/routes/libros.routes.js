@@ -11,15 +11,12 @@ const router = Router()
 
 router.route('/:id')
     .get(obtenerLibro)
+    .delete(eliminarLibro)
+    .put(actualizarLibro)
 
 router.route('/')
     .get(obtenerLibros)
     .post(crearLibro)
-
-router.route('/eliminar/:id')
-    .delete(eliminarLibro)
-
-router.route('/actualizar/:id')
-    .put(actualizarLibro)
+    
 
 export default router
