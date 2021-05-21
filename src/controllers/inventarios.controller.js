@@ -48,7 +48,7 @@ export const obtenerInventarioAlmLib = async (req, res) => {
     if(libro){
         let inventario = await Inventario.find({
             almacen:req.params.almacen
-        }).populate('referencia', '_id nombre libro')
+        }).populate('referencia')
         .exec()
         
         inventario = inventario.filter(inv => inv.referencia.libro == libro._id)
