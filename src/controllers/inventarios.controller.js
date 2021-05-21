@@ -1,5 +1,5 @@
 import Inventario from '../models/Inventario'
-
+import Libro from '../models/Libro'
 
 export const actualizarInventario = async (cantidad,almacen,referencia) => { // funcion para la actulizar inventarios al crear un movimiento
     let inventario = await Inventario.find({almacen,referencia})
@@ -41,6 +41,25 @@ export const obtenerInventarioAlmacen = async (req, res) => {
 
     res.json(inventario)
 }
+
+export const obtenerInventarioAlmLib = async (req, res) => {
+    const libro = await Libro.findById(req.params.libro)
+
+    if(libro){
+        let inventario = await Inventario.find({
+            almacen:req.params.almacen
+        }).populate('referencia', '_id nombre libro')
+        .exec()
+        
+        inventario = inventario.filter(inv => inv.referencia.libro == libro._id)
+        
+        res.json(inventario)
+    }else{
+        res.json([])
+    }
+}
+
+
 /*export const actualizarInventario = async (req, res) => {
     try{
     const update = {

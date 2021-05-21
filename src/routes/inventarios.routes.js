@@ -3,7 +3,8 @@ import {
     crearInventario,
     actualizarInventario,
     obtenerInventarioReferencia,
-    obtenerInventarioAlmacen
+    obtenerInventarioAlmacen,
+    obtenerInventarioAlmLib
 } from '../controllers/inventarios.controller'
 
 const router = Router()
@@ -13,6 +14,9 @@ router.route('/ref/:id')
 
 router.route('/almacen/:id')
     .get(obtenerInventarioAlmacen)
+
+router.route('/almacen/:almacen/lib/:libro')
+    .get(obtenerInventarioAlmLib)
 
 router.route('/')
     .post(crearInventario)

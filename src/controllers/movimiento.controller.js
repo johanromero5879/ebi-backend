@@ -2,7 +2,12 @@ import Inventario from '../models/Inventario'
 import Movimiento from '../models/Movimiento'
 import { actualizarInventario } from './inventarios.controller'
 
+const crearInventario = async(almacen, referencia) => {
+    const inventario = new Inventario({ almacen, referencia })
+    await inventario.save()
 
+    return inventario
+}
 
 export const crearMovimiento = async (req, res) => { // crea nuevo movimiento con su respectiva cargue o descargue de inventarios
     const { movimientos } = req.body
@@ -11,6 +16,9 @@ export const crearMovimiento = async (req, res) => { // crea nuevo movimiento co
             const { almacen, referencia, tipo } = movimiento
             let { cantidad } = movimiento
             let ver_inven= await Inventario.findOne({ almacen, referencia })
+
+            if(!ver_inven)
+                ver_inven = await crearInventario(almacen, referencia)
 
             if(tipo == "dev_adquisicion" || tipo == "distribucion"){//se compara devolucion adquicion o distribucion teniendo en cuenta la cantidad del req
                 
@@ -36,14 +44,27 @@ export const crearMovimiento = async (req, res) => { // crea nuevo movimiento co
 
 }
 
-    export const obtenerMovimientoReferencia = async (req, res) => {
+ export const obtenerMovimientoReferencia = async (req, res) => {
     const movimientos = await Movimiento.find({referencia:req.params.id})
 
     res.json(movimientos)
 }
     
-    export const obtenerMovimientoAlmacen = async (req, res) => {
+export const obtenerMovimientoAlmacen = async (req, res) => {
     const movimientos = await Movimiento.find({almacen:req.params.id})
+
+    res.json(movimientos)
+}
+
+export const obtenerMovimientos = async (req, res) => {
+    const movimientos = await Movimiento.find()
+                                .populate({
+                                    path: 'referencia',
+                                    populate: { path: 'libro', select: '_id titulo'}
+                                })
+                                .populate('almacen', '_id nombre')
+                                .sort({ fecha: 'desc' })
+                                .exec()
 
     res.json(movimientos)
 }

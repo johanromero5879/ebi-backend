@@ -2,7 +2,8 @@ import { Router } from 'express'
 import {
     crearMovimiento,
     obtenerMovimientoReferencia,
-    obtenerMovimientoAlmacen
+    obtenerMovimientoAlmacen,
+    obtenerMovimientos
 } from '../controllers/movimiento.controller'
 
 const router = Router()
@@ -15,6 +16,7 @@ router.route('/almacen/:id')
 
 router.route('/')
     .post(crearMovimiento)
+    .get(obtenerMovimientos)
 
 
 export default router

@@ -1,7 +1,10 @@
 import { Schema, model } from 'mongoose'
 
 const inventariosSchema = new Schema({
-    cantidad: Number,
+    cantidad: {
+        type: Number,
+        default: 0
+    },
     referencia:
         {
             ref: 'referencias',
