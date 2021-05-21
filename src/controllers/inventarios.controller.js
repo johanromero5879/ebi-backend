@@ -33,29 +33,64 @@ export const crearInventario = async (req, res) => {
 
 export const obtenerInventarioReferencia = async (req, res) => {
     const inventario = await Inventario.find({referencia:req.params.id})
+                                            .populate({
+                                                path: 'referencia',
+                                                populate: { 
+                                                    path: 'libro', 
+                                                    select: '_id titulo' 
+                                                }
+                                            })
+                                            .exec()
 
     res.json(inventario)
 }
 export const obtenerInventarioAlmacen = async (req, res) => {
-    const inventario = await Inventario.find({almacen:req.params.id})
+    try{
+        const inventario = await Inventario.find({almacen:req.params.id})
+                                            .populate({
+                                                path: 'referencia',
+                                                populate: { 
+                                                    path: 'libro', 
+                                                    select: '_id titulo' 
+                                                }
+                                            })
+                                            .exec()
 
-    res.json(inventario)
+        if(inventario.length == 0)
+            throw { message: 'El almacen no tiene existencias' }
+        
+        res.json(inventario)
+    }catch(ex){
+        res.status(400).json({ error: true, message: ex.message })
+    }
+    
 }
 
 export const obtenerInventarioAlmLib = async (req, res) => {
-    const libro = await Libro.findById(req.params.libro)
+    try{
+        const libro = await Libro.findById(req.params.libro)
+        if(!libro)
+            throw { message: 'El libro no existe' }
 
-    if(libro){
-        let inventario = await Inventario.find({
+        const inventario = await Inventario.find({
             almacen:req.params.almacen
-        }).populate('referencia')
+        }).populate({
+            path: 'referencia',
+            populate: { 
+                path: 'libro', 
+                select: '_id titulo' 
+            }
+        })
         .exec()
-        
-        inventario = inventario.filter(inv => inv.referencia.libro == libro._id)
-        
-        res.json(inventario)
-    }else{
-        res.json([])
+
+        const invPorLibro = inventario.filter(({referencia}) => referencia.libro._id == req.params.libro)
+
+        if(invPorLibro.length == 0)
+            throw { message: 'No hay registro de existencias' }
+
+        res.json(invPorLibro)
+    }catch(ex){
+        res.status(400).json({ error: true, message: ex.message })
     }
 }
 
