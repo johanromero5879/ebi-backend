@@ -112,8 +112,6 @@ export const obtenerDetalleKardex = async (req, res) => {
         
         if(!kardex)
             throw { message: 'El kardex no existe' }
-        
-        console.log(kardex)
 
         const detallesKardex = {
             _id: kardex._id,
