@@ -97,6 +97,7 @@ export const crearKardex = async (req, res) => {
 
 export const obtenerKardexPorAlm = async (req, res) => {
     const kardex = await Kardex.find({ almacen: req.params.id })
+                                .sort({ fecha: 'desc'})
     
     res.json(kardex)
 }
