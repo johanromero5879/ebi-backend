@@ -117,10 +117,10 @@ export const obtenerDetalleKardex = async (req, res) => {
         const detallesKardex = {
             _id: kardex._id,
             fecha: kardex.fecha,
-            valorInicial: kardex.valorInicial,
+            valorInicial: kardex.cantidadInicial,
             cantidadInicial: kardex.valorInicial,
             valorFinal: kardex.valorInicial,
-            cantidadFinal: kardex.valorInicial,
+            cantidadFinal: kardex.cantidadInicial,
             movimientos: []
         }
 
