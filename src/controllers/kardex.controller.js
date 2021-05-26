@@ -21,9 +21,8 @@ const calcularValoresFinales = (movimientos, kardex) => {
 }
 
 const detallarKardex = (kardex, movimientos) => {
-
     kardex.movimientos.push({
-        fecha: kardex.fecha, 
+        fecha: kardex.fechaAnterior, 
         tipo: 'Entrada',
         detalle: 'Inventario inicial',
         cantidad: kardex.cantidadInicial,
@@ -68,6 +67,7 @@ export const crearKardex = async (req, res) => {
             consultaMov.fecha = { $gte: ultimoKardex.fecha, $lte: new Date()} 
             nuevoKardex.valorInicial = ultimoKardex.valorFinal
             nuevoKardex.cantidadInicial = ultimoKardex.cantidadFinal
+            nuevoKardex.fechaAnterior = ultimoKardex.fecha
         } else {
             nuevoKardex.valorInicial = 0
             nuevoKardex.cantidadInicial = 0
@@ -116,7 +116,9 @@ export const obtenerDetalleKardex = async (req, res) => {
 
         const detallesKardex = {
             _id: kardex._id,
+            almacen: kardex.almacen,
             fecha: kardex.fecha,
+            fechaAnterior: kardex.fechaAnterior,
             valorInicial: kardex.valorInicial,
             cantidadInicial: kardex.cantidadInicial,
             valorFinal: kardex.valorInicial,

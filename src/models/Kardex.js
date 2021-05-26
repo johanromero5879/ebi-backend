@@ -5,6 +5,10 @@ const kardexSchema = new Schema({
         type: Date,
         default: Date.now
     },
+    fechaAnterior: {
+        type: Date,
+        default: Date.now
+    },
     valorInicial: Number,
     cantidadInicial: Number,
     valorFinal: Number,
