@@ -3,7 +3,7 @@ import Libro from '../models/Libro'
 export const crearLibro = async (req, res) => {
     const nuevoLibro = new Libro(req.body)
     try{
-        const libroEncontrado = await Libro.findOne({ isbn: req.body })
+        const libroEncontrado = await Libro.findOne({ isbn: req.body.isbn })
         if(libroEncontrado)
             throw { message: 'El isbn ya se encuentra en uso' }
         
